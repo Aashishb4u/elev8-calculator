@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saving Calculator</title>
+    <link rel="stylesheet" href="assets/css/tailwind.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+</head>
+<style>
+    .elev8-blue-bg {
+        background-color: #0A142F !important;
+    }
+</style>
+
+<body class="bg-[#f5f5f5] font-['Lato']">
+
+    <main class="container mx-auto md:p-14 p-8">
+        <!-- Tabs -->
+        <div id="tabs"
+            class="mx-auto w-fit border-[0.5px] border-[#241c15] p-2 md:rounded-full rounded-lg grid md:grid-cols-3 text-sm whitespace-nowrap text-center gap-2">
+            <button class="tab active elev8-blue-bg py-3 px-4 md:rounded-full rounded-lg text-white w-full"
+                data-tab="Bookkeeping">Book Keeping</button>
+            <button class="tab transition-all duration-300 py-3 px-4 md:rounded-full rounded-lg w-full"
+                data-tab="Marketing">Marketing/Automation & Sale</button>
+            <button class="tab transition-all duration-300 py-3 px-4 md:rounded-full rounded-lg w-full"
+                data-tab="All_services">All Services</button>
+        </div>
+
+        <!-- Pricing Table -->
+        <div id="pricing-table" class="mt-10">
+
+            <div class="grid md:grid-cols-3 gap-5">
+                <div></div>
+                <!-- Pricing Toggle -->
+                <div class="flex flex-shrink-0 justify-center w-full max-w-[14rem] m-auto">
+                    <div class="relative flex w-full p-1 bg-white rounded-full">
+                        <span class="absolute inset-0 m-1 pointer-events-none" aria-hidden="true">
+                            <span id="toggle-indicator"
+                                class="absolute inset-0 w-1/2 bg-[#ffe01b] text-black rounded-full shadow-sm shadow-indigo-950/10 transform transition-transform duration-150 ease-in-out"></span>
+                        </span>
+                        <button id="monthly-btn"
+                            class="relative flex-1 text-sm font-medium h-8 rounded-full focus-visible:outline-none transition-all duration-150 ease-in-out text-black"
+                            data-toggle="monthly">
+                            Monthly
+                        </button>
+                        <button id="yearly-btn"
+                            class="relative flex-1 text-sm font-medium h-8 rounded-full focus-visible:outline-none transition-all duration-150 ease-in-out text-black"
+                            data-toggle="yearly">
+                            Yearly <span>-20%</span>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="text-center ms-auto flex items-center justify-end gap-4">
+                    <!-- Cancel Button -->
+                    <!-- <button id="cancel-btn" type="button"
+                        class="hidden w-full lg:w-auto inline-flex justify-center whitespace-nowrap rounded-lg border border-[#241c15] text-[#241c15] px-5 py-2 text-sm font-medium hover:elev8-blue-bg hover:text-white focus-visible:outline-none transition-all duration-300">
+                        Cancel
+                    </button> -->
+                    <!-- Save Button -->
+                    <!-- <button id="save-btn" type="button"
+                        class=" w-full lg:w-auto inline-flex justify-center whitespace-nowrap rounded-lg bg-[#ffe01b] text-[#241c15] px-6 py-2.5 text-sm font-medium hover:bg-[#e6cc19] focus-visible:outline-none transition-all duration-300">
+                        Save
+                    </button> -->
+
+                    <!-- Customize Button -->
+
+                    <button id="customize-btn"
+                        class="hidden w-full lg:w-auto inline-flex justify-center items-center whitespace-nowrap rounded-lg elev8-blue-bg text-white px-6 py-2.5 text-sm font-medium hover:bg-[#1e1812] focus-visible:outline-none transition-all duration-300">
+                        Customize
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="size-4 ms-2">
+                            <path
+                                d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                        </svg>
+
+                    </button>
+                </div>
+            </div>
+
+
+
+
+            <!-- Pricing Plans -->
+            <div id="pricing-section"
+                class="hidden max-w-sm mx-auto grid gap-6 lg:grid-cols-3 items-start lg:max-w-none mt-10">
+                <!-- Tier 1 -->
+                <!-- <div class="h-full tier-container">
+                    <div
+                        class="relative flex flex-col h-full p-6 rounded-2xl bg-white border border-slate-200 shadow shadow-slate-950/5">
+                        <div class="mb-5">
+                            <div class="text-slate-900 font-semibold mb-1">Tier 1</div>
+                            <div class="inline-flex items-baseline mb-2">
+                                <span class="text-slate-900 font-bold text-3xl">$</span>
+                                <span id="tier1-price" class="text-slate-900 font-bold text-3xl">29</span>
+                                <span class="text-slate-500 font-medium price-type">/year</span>
+                            </div>
+                            <div class="text-sm text-slate-500 mb-5">Essential bookkeeping features for freelancers.
+                            </div>
+                            <a class="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-[#ffe01b] text-black border border-[#241c15] px-3.5 py-2.5 text-sm font-medium hover:border-b-4 hover:-translate-y-1 focus-visible:outline-none transition-all duration-300"
+                                href="#0">
+                                Subscribe
+                            </a>
+                        </div>
+                        <div class="text-slate-900 font-medium mb-3">Includes:</div>
+                        <ul class="text-slate-600 text-sm space-y-3 grow">
+                            <li class="flex items-center">
+                                <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                </svg>
+                                <span id="cost-saving-1"></span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                </svg>
+                                <span id="roi-1"></span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                </svg>
+                                <span id="eff-gain-1"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div> -->
+
+                <!-- Tier 2 -->
+                <!-- <div class="h-full tier-container">
+                    <div
+                        class="relative flex flex-col h-full p-6 rounded-2xl bg-white border border-slate-200 shadow shadow-slate-950/5">
+                        <div class="absolute top-0 right-0 mr-6 -mt-4">
+                            <div
+                                class="inline-flex items-center text-xs font-semibold py-1.5 px-3 bg-emerald-500 text-white rounded-full shadow-sm shadow-slate-950/5">
+                                Most Popular
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <div class="text-slate-900 font-semibold mb-1">Tier 2</div>
+                            <div class="inline-flex items-baseline mb-2">
+                                <span class="text-slate-900 font-bold text-3xl">$</span>
+                                <span id="tier2-price" class="text-slate-900 font-bold text-3xl">49</span>
+                                <span class="text-slate-500 font-medium price-type">/year</span>
+                            </div>
+                            <div class="text-sm text-slate-500 mb-5">Comprehensive plan for growing businesses.</div>
+                            <a class="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-[#ffe01b] text-black border border-[#241c15] px-3.5 py-2.5 text-sm font-medium hover:border-b-4 hover:-translate-y-1 focus-visible:outline-none transition-all duration-300"
+                                href="#0">
+                                Subscribe
+                            </a>
+                        </div>
+                        <div class="text-slate-900 font-medium mb-3">Includes:</div>
+                        <ul class="text-slate-600 text-sm space-y-3 grow">
+                            <li class="flex items-center">
+                                <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                </svg>
+                                <span id="cost-saving-2"></span>
+
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                </svg>
+                                <span id="roi-2"></span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                </svg>
+                                <span id="eff-gain-2"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div> -->
+
+                <!-- Tier 3 -->
+                <!-- <div class="h-full tier-container">
+                    <div
+                        class="relative flex flex-col h-full p-6 rounded-2xl bg-white border border-slate-200 shadow shadow-slate-950/5">
+                        <div class="mb-5">
+                            <div class="text-slate-900 font-semibold mb-1">Tier 3</div>
+                            <div class="inline-flex items-baseline mb-2">
+                                <span class="text-slate-900 font-bold text-3xl">$</span>
+                                <span id="tier3-price" class="text-slate-900 font-bold text-3xl">99</span>
+                                <span class="text-slate-500 font-medium price-type">/year</span>
+                            </div>
+                            <div class="text-sm text-slate-500 mb-5">Premium plan with all features for enterprises.
+                            </div>
+                            <a class="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-[#ffe01b] text-black border border-[#241c15] px-3.5 py-2.5 text-sm font-medium hover:border-b-4 hover:-translate-y-1 focus-visible:outline-none transition-all duration-300"
+                                href="#0">
+                                Subscribe
+                            </a>
+                        </div>
+                        <div class="text-slate-900 font-medium mb-3">Includes:</div>
+                        <ul class="text-slate-600 text-sm space-y-3 grow">
+                            <li class="flex items-center">
+                                <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                </svg>
+                                <span id="cost-saving-3"></span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                </svg>
+                                <span id="roi-3"></span>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                                </svg>
+                                <span id="eff-gain-3"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div> -->
+            </div>
+
+
+            <!-- Customize Form -->
+            <div id="customize-form"
+                class="mt-6 max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                <h3 class="text-xl font-semibold text-[#241c15] mb-4">Customize Your Plan</h3>
+                <form id="staffForm">
+                    <!-- Form Fields -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-[#241c15] mb-2">How many In-house
+                            Accountant/Bookkeeper you have?</label>
+                        <input type="number" id="Bookkeeping" name="Bookkeeping"
+                            class="number-input w-full px-3 py-2 border rounded-lg border-slate-300 outline-none focus:border-[#ffe01b] focus:ring-2 focus:ring-[#ffe01b] transition-all duration-300"
+                            placeholder="Enter number">
+                        <p class="error-message text-red-500 text-sm hidden mt-2">Negative values are not allowed.</p>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-[#241c15] mb-2">How many In-house Marketing you
+                            have?</label>
+                        <input type="number" id="Marketing" name="Marketing"
+                            class="number-input w-full px-3 py-2 border rounded-lg border-slate-300 outline-none focus:border-[#ffe01b] focus:ring-2 focus:ring-[#ffe01b] transition-all duration-300"
+                            placeholder="Enter number">
+                        <p class="error-message text-red-500 text-sm hidden mt-2">Negative values are not allowed.</p>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-[#241c15] mb-2">How many In-house Automation you
+                            have?</label>
+                        <input type="number" id="Automation" name="Automation"
+                            class="number-input w-full px-3 py-2 border rounded-lg border-slate-300 outline-none focus:border-[#ffe01b] focus:ring-2 focus:ring-[#ffe01b] transition-all duration-300"
+                            placeholder="Enter number">
+                        <p class="error-message text-red-500 text-sm hidden mt-2">Negative values are not allowed.</p>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-[#241c15] mb-2">How many In-house Sales you
+                            have?</label>
+                        <input type="number" id="Sales" name="Sales"
+                            class="number-input w-full px-3 py-2 border rounded-lg border-slate-300 outline-none focus:border-[#ffe01b] focus:ring-2 focus:ring-[#ffe01b] transition-all duration-300"
+                            placeholder="Enter number">
+                        <p class="error-message text-red-500 text-sm hidden mt-2">Negative values are not allowed.</p>
+                    </div>
+                    <button type="button" id="save-btn"
+                        class="px-4 py-2 bg-[#ffe01b] text-[#241c15] rounded-lg hover:bg-[#d6c014] transition-all duration-300">Evaluate</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Popup Modal -->
+        <div id="popupModal"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md hidden">
+            <div class="elev8-blue-bg text-white max-w-sm w-full rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-[#ffe01b] mb-4">Subscription Confirmed</h2>
+                <p class="text-lg mb-4">
+                    You have successfully subscribed to the <span id="tierName" class="font-semibold"></span> plan.
+                </p>
+                <div id="popup-payment" class="inline-flex items-baseline mb-2">
+                    <span class="text-white font-bold text-3xl">$</span> 
+                    <span id="tierAmountPopup" class="text-white font-bold text-3xl"></span>
+                    <span id="periodPopup" class="text-slate-400 text-sm font-medium price-type mr-1"></span>
+                </div>
+                <p class="text-sm mb-4">
+                    Features included:
+                </p>
+
+                <ul id="tierFeatures" class="list-disc list-inside space-y-2 text-sm">
+                    <!-- Features will be injected here -->
+                </ul>
+                <button onclick="closePopup()"
+                    class="w-full bg-[#ffe01b] text-black font-bold py-2 rounded-lg hover:bg-opacity-90 transition duration-200 mt-4">
+                    Close
+                </button>
+            </div>
+        </div>
+
+
+        <!-- JavaScript -->
+        <script>
+            var tabsSelected = 'Bookkeeping'; // Default selected tab
+
+            // Pricing functionality
+            const tier1Price = document.getElementById('tier1-price');
+            const tier2Price = document.getElementById('tier2-price');
+            const tier3Price = document.getElementById('tier3-price');
+            const priceTypeElems = document.querySelectorAll('.price-type');
+            const toggleIndicator = document.getElementById('toggle-indicator');
+            const yearlyBtn = document.getElementById('yearly-btn');
+            const monthlyBtn = document.getElementById('monthly-btn');
+            var PeriodToggle = 'monthly';
+            var pricingResults = null;
+
+            // Select relevant elements
+            const customizeBtn = document.getElementById('customize-btn');
+            const customizeForm = document.getElementById('customize-form');
+            const saveBtn = document.getElementById('save-btn');
+            const cancelBtn = document.getElementById('cancel-btn');
+            const pricingSection = document.getElementById('pricing-section');
+            const numberInputs = document.querySelectorAll('.number-input');
+
+            // Standard salaries for each service
+            const salaries = {
+                Bookkeeping: 3596.80,
+                Marketing: 8950.33,
+                Automation: 8312.50,
+                Sales: 6558.83,
+            };
+
+            // Tier prices for each group
+            const tierPrices = {
+                Bookkeeping: {
+                    1: 400.00,
+                    2: 2000.00,
+                    3: 4500.00
+                },
+                Marketing: {
+                    1: 5997.00,
+                    2: 12997.00,
+                    3: 19997.00
+                },
+                All_services: {
+                    1: 400.00 + 5997.00, // Tier 1
+                    2: 2000.00 + 12997.00, // Tier 2
+                    3: 4500.00 + 19997.00, // Tier 3
+                }
+            };
+
+            // Tier prices for each group
+            const tierFeatures = {
+                Bookkeeping: {
+                    1: [
+                        'includes bookkeeping 1',
+                        'includes bookkeeping 1',
+                        'includes bookkeeping 1'
+                    ],
+                    2: [
+                        'includes bookkeeping 2',
+                        'includes bookkeeping 2',
+                        'includes bookkeeping 2'
+                    ],
+                    3: [
+                        'includes bookkeeping 3',
+                        'includes bookkeeping 3',
+                        'includes bookkeeping 3'
+                    ]
+                },
+                Marketing: {
+                    1: [
+                        'includes Marketing 1',
+                        'includes Marketing 1',
+                        'includes Marketing 1'
+                    ],
+                    2: [
+                        'includes Marketing 2',
+                        'includes Marketing 2',
+                        'includes Marketing 2'
+                    ],
+                    3: [
+                        'includes Marketing 3',
+                        'includes Marketing 3',
+                        'includes Marketing 3'
+                    ]
+                },
+                All_services: {
+                    1: [
+                        'includes all_services 1',
+                        'includes all_services 1',
+                        'includes all_services 1'
+                    ],
+                    2: [
+                        'includes all_services 2',
+                        'includes all_services 2',
+                        'includes all_services 2'
+                    ],
+                    3: [
+                        'includes all_services 3',
+                        'includes all_services 3',
+                        'includes all_services 3'
+                    ]
+                },
+            };
+
+            // Ad expense rules
+            const adExpenses = [
+                { maxEmployees: 5, expense: 3000 },
+                { maxEmployees: 25, expense: 7500 },
+                { maxEmployees: Infinity, expense: 12000 },
+            ];
+
+            // Tab functionality
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active styles from all tabs
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active', 'elev8-blue-bg', 'text-white'));
+
+                    // Add active styles to the clicked tab
+                    tab.classList.add('active', 'elev8-blue-bg', 'text-white');
+
+                    // Update the tabsSelected variable with the clicked tab's data-tab value
+                    tabsSelected = tab.getAttribute('data-tab');
+                    console.log('Selected Tab:', tabsSelected); // Log the selected tab
+                    let myPromise = new Promise((res) => {
+                        const tierOne = calculateFinancials(tabsSelected, 1, formData);
+                        const tierTwo = calculateFinancials(tabsSelected, 2, formData);
+                        const tierThree = calculateFinancials(tabsSelected, 3, formData);
+                        res([
+                            tierOne,
+                            tierTwo,
+                            tierThree
+                        ]);
+                    });
+
+                    // console.log('Form Data:', formData);
+                    myPromise.then((data) => {
+                        pricingResults = Object.assign(data);
+                        evaluatePricing(data);
+                    });
+                });
+            });
+
+
+
+
+            yearlyBtn.addEventListener('click', () => {
+                toggleIndicator.style.transform = 'translateX(100%)';
+                PeriodToggle = 'yearly';
+                priceTypeElems.forEach(elem => elem.textContent = '/year');
+                evaluatePricing(pricingResults);
+            });
+
+            monthlyBtn.addEventListener('click', () => {
+                toggleIndicator.style.transform = 'translateX(0)';
+                PeriodToggle = 'monthly';
+                priceTypeElems.forEach(elem => elem.textContent = '/month');
+                evaluatePricing(pricingResults);
+            });
+
+
+
+            // Data for pricing tiers
+
+            // Remove the "hidden" class to display the section
+            // pricingSection.classList.remove("hidden");
+
+
+            // 1. Prevent Negative Values and Show Error Messages
+            numberInputs.forEach((input) => {
+                input.addEventListener('input', (event) => {
+                    const errorMessage = input.nextElementSibling;
+
+                    if (event.target.value < 0) {
+                        input.classList.add('focus:ring-red-500', 'focus:border-red-500');
+                        errorMessage.classList.remove('hidden');
+                    } else {
+                        input.classList.remove('focus:ring-red-500', 'focus:border-red-500');
+                        errorMessage.classList.add('hidden');
+                    }
+                });
+            });
+
+            // 2. Handle Customize Button Behavior
+            customizeBtn.addEventListener('click', () => {
+                customizeForm.classList.remove('hidden');  // Show the form
+                customizeBtn.classList.add('hidden');     // Hide the customize button
+                saveBtn.classList.remove('hidden');       // Show the save button
+                // cancelBtn.classList.remove('hidden');     // Show the cancel button
+                pricingSection.classList.add('hidden');   // Hide the pricing section
+            });
+
+            // 3. Handle Save Button Behavior
+            saveBtn.addEventListener('click', () => {
+
+                const form = document.getElementById('staffForm');
+                const inputs = form.querySelectorAll('.number-input');
+                let isValid = true;
+                formData = {};
+
+                inputs.forEach(input => {
+                    const value = parseInt(input.value, 10);
+                    const errorMessage = input.nextElementSibling;
+
+                    if (isNaN(value) || value < 0) {
+                        errorMessage.classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        errorMessage.classList.add('hidden');
+                        formData[input.name] = value;
+                    }
+                });
+
+                if (isValid) {
+                    customizeForm.classList.add('hidden');    // Hide the form
+                    saveBtn.classList.add('hidden');          // Hide the save button
+                    // cancelBtn.classList.remove('hidden');        // Hide the cancel button
+                    customizeBtn.classList.remove('hidden'); // Show the customize button
+                    pricingSection.classList.remove('hidden'); // Show the pricing section
+                    // pricingSection.classList.remove('hidden'); // Show the pricing section
+                    let myPromise = new Promise((res) => {
+                        const tierOne = calculateFinancials(tabsSelected, 1, formData);
+                        const tierTwo = calculateFinancials(tabsSelected, 2, formData);
+                        const tierThree = calculateFinancials(tabsSelected, 3, formData);
+                        res([
+                            tierOne,
+                            tierTwo,
+                            tierThree
+                        ]);
+                    });
+
+                    // console.log('Form Data:', formData);
+                    myPromise.then((data) => {
+                        pricingResults = Object.assign(data);
+                        evaluatePricing(data);
+                    });
+                    // alert('Form Data Saved: ' + JSON.stringify(formData, null, 2));
+                }
+
+                // // Example input
+                // const serviceCounts = {
+                //     Bookkeeping: 2,
+                //     Marketing: 3,
+                //     Automation: 2,
+                //     Sales: 5,
+                // };
+
+
+
+            });
+
+            function evaluatePricing(pricingTiers) {
+                pricingSection.innerHTML = "";
+                pricingTiers.forEach((tier, index) => {
+                    const tierData = PeriodToggle === 'monthly' ? tier.monthlyResults : tier.yearlyResults;
+                    // const tierData = tier.map((val) => {
+                    //     // if(PeriodToggle === 'monthly') {
+
+                    //     // }
+                    //     console.log(val);
+                    // });
+                    // Create tier container
+                    const tierDiv = document.createElement("div");
+                    tierDiv.classList.add("h-full", "tier-container");
+
+                    // Highlight badge (if applicable)
+                    const highlightBadge = tier.highlight
+                        ? `<div class="absolute top-0 right-0 mr-6 -mt-4">
+                <div class="inline-flex items-center text-xs font-semibold py-1.5 px-3 bg-emerald-500 text-white rounded-full shadow-sm shadow-slate-950/5">
+                    Most Popular
+                </div>
+            </div>`
+                        : "";
+
+                    // Includes list
+                    tier.includes = [
+                        // `Overhead Costs: ${tierData.overheadCost.toFixed(2)}`,
+                        // `Total In-House Cost: ${tierData.teamCost}`,
+                        `Cost Saving: ${tierData.costSaving.toFixed(2)}`,
+                        `ROI : ${tierData.roi.toFixed(2)}`,
+                        `Efficiency Gain: ${tierData.efficiencySavings.toFixed(2)}`,
+                    ]
+                    const includesList = tier.includes
+                        .map(
+                            (item) => `
+            <li class="flex items-center">
+                <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                </svg>
+                <span>${item}</span>
+            </li>`
+                        )
+                        .join("");
+
+                    const featureList = tierFeatures[tabsSelected][index+1].map((val) => `
+                         <li class="flex items-center">
+                            <span>${val}</span>
+                        </li>`).join("");
+
+                    // Set the inner HTML for the tier container
+                    tierDiv.innerHTML = `
+        <div class="relative flex flex-col h-full p-6 rounded-2xl bg-white border border-slate-200 shadow shadow-slate-950/5">
+            ${highlightBadge}
+            <div class="mb-5">
+                <div class="text-slate-900 font-semibold mb-1">Tier ${index + 1}</div>
+                <div class="inline-flex items-baseline mb-2">
+                    <span class="text-slate-900 font-bold text-3xl">$</span>
+                    <span class="text-slate-900 font-bold text-3xl">
+                        ${PeriodToggle === 'monthly' ? tierPrices[tabsSelected][index+1] : tierPrices[tabsSelected][index+1] * 12}
+                    </span>
+                    <span class="text-slate-500 font-medium price-type">/${PeriodToggle}</span>
+                </div>
+                <div class="text-sm text-slate-500 mb-5">Essential bookkeeping features for freelancers.</div>
+                <a class="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-[#ffe01b] text-black border border-[#241c15] px-3.5 py-2.5 text-sm font-medium hover:border-b-4 hover:-translate-y-1 focus-visible:outline-none transition-all duration-300" href="#0"
+                onclick="openPopup('Tier ${index + 1}', decodeURIComponent('${encodeURIComponent(JSON.stringify(tier))}'), '${index + 1}')"
+                >
+                    Subscribe
+                </a>
+            </div>
+             <div class="text-slate-900 font-medium mb-3">Savings:</div>
+            <ul class="text-slate-600 text-sm space-y-3 grow mb-4">
+                ${includesList}
+            </ul>
+            <div class="text-slate-900 font-medium mb-3">Includes:</div>
+            <ul class="text-slate-600 text-sm space-y-3 grow ">
+                ${
+                tierFeatures[tabsSelected][index+1].map((val) => `
+                         <li class="flex items-center">
+                            <svg class="w-3 h-3 fill-emerald-500 mr-3 shrink-0" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z" />
+                            </svg>
+                            <span>${val}</span>
+                        </li>`).join("")
+                }
+            </ul>
+           
+        </div>
+    `;
+
+                    // Append the tier container to the pricing section
+                    pricingSection.appendChild(tierDiv);
+                });
+            }
+
+            // 4. Handle Cancel Button Behavior
+            // cancelBtn.addEventListener('click', () => {
+            //     customizeForm.classList.add('hidden');    // Hide the form
+            //     saveBtn.classList.add('hidden');          // Hide the save button
+            //     cancelBtn.classList.add('hidden');        // Hide the cancel button
+            //     customizeBtn.classList.remove('hidden'); // Show the customize button
+            //     pricingSection.classList.remove('hidden'); // Show the pricing section
+            // });
+
+
+            // Function to calculate Ad Expense
+            function calculateAdExpense(totalEmployees) {
+                for (let rule of adExpenses) {
+                    if (totalEmployees <= rule.maxEmployees) {
+                        return rule.expense;
+                    }
+                }
+                return 0; // Default if no match found
+            }
+
+            // Efficiency savings calculation
+            function calculateEfficiencySavings(oldHours, newHours, teamCost) {
+                return ((oldHours - newHours) / oldHours) * teamCost;
+            }
+
+            // Main function to calculate the financials
+            function calculateFinancials(group, tier, serviceCounts) {
+                const isMarketingIncluded = group === "All_services" || group === 'Marketing';
+
+                // Calculate total service salary (TS)
+                let totalSalary = 0;
+                if (group === 'Bookkeeping' || group === "All_services") {
+                    totalSalary += salaries.Bookkeeping * serviceCounts.Bookkeeping;
+                }
+
+                if (group === "All_services" || group === 'Marketing') {
+                    totalSalary += salaries.Marketing * serviceCounts.Marketing;
+                    totalSalary += salaries.Automation * serviceCounts.Automation;
+                    totalSalary += salaries.Sales * serviceCounts.Sales;
+                }
+
+
+
+                // Calculate Ad Expense (only for marketing, automation, and sales)
+                let adExpense = 0;
+                let totalEmployees = 0;
+                if (isMarketingIncluded) {
+                    if (group === 'Bookkeeping' || group === "All_services") {
+                        totalEmployees = serviceCounts.Bookkeeping;
+                    }
+
+                    if (group === "All_services" || group === 'Marketing') {
+                        totalEmployees += serviceCounts.Marketing + serviceCounts.Automation + serviceCounts.Sales;
+                    }
+
+                    // const totalEmployees = serviceCounts.Marketing + serviceCounts.Automation + serviceCounts.Sales + serviceCounts.Bookkeeping;
+                    adExpense = calculateAdExpense(totalEmployees);
+                }
+
+                // Calculate Overhead Cost (OC)
+                const teamSalary = totalSalary + adExpense;
+                const overheadCost = teamSalary / 2;
+
+                // Calculate Team Cost (TC)
+                const teamCost = teamSalary + overheadCost;
+
+                // Calculate Cost Saving (CS)
+                const costSaving = teamCost - tierPrices[group][tier];
+
+                // Calculate ROI
+                let roi = costSaving / tierPrices[group][tier];
+
+                roi = roi * 100;
+
+                // Calculate Break Even Points
+                const breakEvenPoints = tierPrices[group][tier] / costSaving;
+
+                // Calculate Efficiency Gain Savings
+                const oldHours = 160;
+                const newHours = 80;
+                const efficiencySavings = calculateEfficiencySavings(oldHours, newHours, teamCost);
+
+                // Output values
+                const monthlyResults = {
+                    teamSalary,
+                    adExpense,
+                    overheadCost,
+                    teamCost,
+                    costSaving,
+                    roi,
+                    breakEvenPoints,
+                    efficiencySavings,
+                };
+
+                const yearlyResults = {};
+                for (const key in monthlyResults) {
+                    yearlyResults[key] = monthlyResults[key] * 12; // Multiply by 12 for yearly
+                }
+
+                return { monthlyResults, yearlyResults };
+            }
+
+            // // Example input
+            // const serviceCounts = {
+            //     Bookkeeping: 2,
+            //     Marketing: 3,
+            //     Automation: 2,
+            //     Sales: 5,
+            // };
+
+            // Calculate for "All services" group and Tier 1
+
+            // open modal logic
+            function openPopup(tierName, tier, tierId) {
+                tier = JSON.parse(tier);
+                const tierIdInt = +tierId;
+                let features = tier.includes;
+                const tierData = PeriodToggle === 'monthly' ? tier.monthlyResults : tier.yearlyResults;
+                
+                // Set the tier name
+                document.getElementById("tierName").textContent = tierName;
+
+                // Inject the features into the list
+                const featuresList = features
+                    .map((feature) => `<li>${feature}</li>`)
+                    .join("");
+                document.getElementById("tierFeatures").innerHTML = featuresList;
+
+                // Show the modal
+                document.getElementById("popupModal").classList.remove("hidden");
+                const popupPaymentDiv = document.getElementById('popup-payment');
+                const finalTierPrice = (PeriodToggle === 'monthly') ? tierPrices[tabsSelected][tierIdInt] : 
+                (+tierPrices[tabsSelected][tierIdInt]) * 12;
+                popupPaymentDiv.innerHTML = `
+                    <span class="text-white font-bold text-3xl">$</span>
+                    <span class="text-white font-bold text-3xl">${finalTierPrice}</span>
+                    <span class="text-slate-400 text-sm font-medium price-type mr-1">/${PeriodToggle}</span>`
+            }
+
+            function closePopup() {
+                document.getElementById("popupModal").classList.add("hidden");
+            }
+
+
+        </script>
+
+    </main>
+
+</body>
+
+</html>
