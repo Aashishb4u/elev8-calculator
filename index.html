@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saving Calculator</title>
     <link rel="stylesheet" href="assets/css/tailwind.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -54,7 +54,7 @@
                         <button id="yearly-btn"
                             class="relative flex-1 text-sm font-medium h-8 rounded-full focus-visible:outline-none transition-all duration-150 ease-in-out text-black"
                             data-toggle="yearly">
-                            Yearly <span>-20%</span>
+                            Yearly
                         </button>
 
                     </div>
@@ -292,10 +292,13 @@
         <!-- Popup Modal -->
         <div id="popupModal"
             class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md hidden">
-            <div class="elev8-blue-bg text-white max-w-sm w-full rounded-lg shadow-lg p-6">
-                <h2 class="text-2xl font-bold text-[#ffe01b] mb-4">Subscription Confirmed</h2>
-                <p class="text-lg mb-4">
-                    You have successfully subscribed to the <span id="tierName" class="font-semibold"></span> plan.
+            <div class="relative elev8-blue-bg text-white max-w-sm w-full rounded-lg shadow-lg p-6">
+                <div onclick="closePopup()" class="absolute" style="right: 15px; top: 10px; cursor: pointer;">
+                    <span><i class="fa fa-times"></i></span>
+                </div> 
+                <h2 class="text-2xl font-bold text-[#ffe01b] mb-4">Gets Started</h2>
+                <p class="text-lg mb-4"> 
+                    with <span id="tierName" class="font-semibold"></span> plan.
                 </p>
                 <div id="popup-payment" class="inline-flex items-baseline mb-2">
                     <span class="text-white font-bold text-3xl">$</span> 
@@ -309,9 +312,36 @@
                 <ul id="tierFeatures" class="list-disc list-inside space-y-2 text-sm">
                     <!-- Features will be injected here -->
                 </ul>
+                <form id="staffForm" style="margin: 2rem 0;">
+                    <!-- Form Fields -->
+                    <div style="margin-bottom: 1rem;">
+                        <!-- <label class="block text-sm font-medium text-[#d3d3d3] mb-2">
+                            Name
+                        </label> -->
+                        <input type="text" name="Bookkeeping"
+                            class="number-input w-full px-3 py-2 border rounded-lg border-slate-300 outline-none focus:border-[#ffe01b] focus:ring-2 focus:ring-[#ffe01b] transition-all duration-300"
+                            placeholder="Name">
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <!-- <label class="block text-sm font-medium text-[#d3d3d3] mb-2">
+                            Email
+                        </label> -->
+                        <input type="text" name="email"
+                            class="number-input w-full px-3 py-2 border rounded-lg border-slate-300 outline-none focus:border-[#ffe01b] focus:ring-2 focus:ring-[#ffe01b] transition-all duration-300"
+                            placeholder="Email">
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <!-- <label class="block text-sm font-medium text-[#d3d3d3] mb-2">
+                            Phone Number
+                        </label> -->
+                        <input type="text" name="phone_number"
+                            class="number-input w-full px-3 py-2 border rounded-lg border-slate-300 outline-none focus:border-[#ffe01b] focus:ring-2 focus:ring-[#ffe01b] transition-all duration-300"
+                            placeholder="Phone Number">  
+                    </div>
+                </form>
                 <button onclick="closePopup()"
                     class="w-full bg-[#ffe01b] text-black font-bold py-2 rounded-lg hover:bg-opacity-90 transition duration-200 mt-4">
-                    Close
+                    Submit
                 </button>
             </div>
         </div>
@@ -595,9 +625,9 @@
                     tier.includes = [
                         // `Overhead Costs: ${tierData.overheadCost.toFixed(2)}`,
                         // `Total In-House Cost: ${tierData.teamCost}`,
-                        `Cost Saving: ${tierData.costSaving.toFixed(2)}`,
-                        `ROI : ${tierData.roi.toFixed(2)}`,
-                        `Efficiency Gain: ${tierData.efficiencySavings.toFixed(2)}`,
+                        `Cost Saving: <strong>${tierData.costSaving.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </strong>`,
+                        `ROI : <strong>${tierData.roi.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong>`,
+                        `Efficiency Gain: <strong>${tierData.efficiencySavings.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong>`,
                     ]
                     const includesList = tier.includes
                         .map(
@@ -625,7 +655,7 @@
                 <div class="inline-flex items-baseline mb-2">
                     <span class="text-slate-900 font-bold text-3xl">$</span>
                     <span class="text-slate-900 font-bold text-3xl">
-                        ${PeriodToggle === 'monthly' ? tierPrices[tabsSelected][index+1] : tierPrices[tabsSelected][index+1] * 12}
+                        ${PeriodToggle === 'monthly' ? tierPrices[tabsSelected][index+1].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : (tierPrices[tabsSelected][index+1] * 12).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                     </span>
                     <span class="text-slate-500 font-medium price-type">/${PeriodToggle}</span>
                 </div>
@@ -633,7 +663,7 @@
                 <a class="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-[#ffe01b] text-black border border-[#241c15] px-3.5 py-2.5 text-sm font-medium hover:border-b-4 hover:-translate-y-1 focus-visible:outline-none transition-all duration-300" href="#0"
                 onclick="openPopup('Tier ${index + 1}', decodeURIComponent('${encodeURIComponent(JSON.stringify(tier))}'), '${index + 1}')"
                 >
-                    Subscribe
+                    Get Started
                 </a>
             </div>
              <div class="text-slate-900 font-medium mb-3">Savings:</div>
@@ -796,7 +826,7 @@
                 (+tierPrices[tabsSelected][tierIdInt]) * 12;
                 popupPaymentDiv.innerHTML = `
                     <span class="text-white font-bold text-3xl">$</span>
-                    <span class="text-white font-bold text-3xl">${finalTierPrice}</span>
+                    <span class="text-white font-bold text-3xl">${finalTierPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                     <span class="text-slate-400 text-sm font-medium price-type mr-1">/${PeriodToggle}</span>`
             }
 
