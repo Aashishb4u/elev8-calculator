@@ -319,7 +319,7 @@
                             Name
                         </label> -->
                         <input type="text" name="Bookkeeping"
-                            class="number-input w-full px-3 py-2 border rounded-lg border-slate-300 outline-none focus:border-[#ffe01b] focus:ring-2 focus:ring-[#ffe01b] transition-all duration-300"
+                            class="number-input text-black w-full px-3 py-2 border rounded-lg border-slate-300 outline-none focus:border-[#ffe01b] focus:ring-2 focus:ring-[#ffe01b] transition-all duration-300"
                             placeholder="Name">
                     </div>
                     <div style="margin-bottom: 1rem;">
@@ -327,7 +327,7 @@
                             Email
                         </label> -->
                         <input type="text" name="email"
-                            class="number-input w-full px-3 py-2 border rounded-lg border-slate-300 outline-none focus:border-[#ffe01b] focus:ring-2 focus:ring-[#ffe01b] transition-all duration-300"
+                            class="number-input text-black w-full px-3 py-2 border rounded-lg border-slate-300 outline-none focus:border-[#ffe01b] focus:ring-2 focus:ring-[#ffe01b] transition-all duration-300"
                             placeholder="Email">
                     </div>
                     <div style="margin-bottom: 1rem;">
@@ -335,7 +335,7 @@
                             Phone Number
                         </label> -->
                         <input type="text" name="phone_number"
-                            class="number-input w-full px-3 py-2 border rounded-lg border-slate-300 outline-none focus:border-[#ffe01b] focus:ring-2 focus:ring-[#ffe01b] transition-all duration-300"
+                            class="text-black number-input w-full px-3 py-2 border rounded-lg border-slate-300 outline-none focus:border-[#ffe01b] focus:ring-2 focus:ring-[#ffe01b] transition-all duration-300"
                             placeholder="Phone Number">  
                     </div>
                 </form>
@@ -401,53 +401,53 @@
             const tierFeatures = {
                 Bookkeeping: {
                     1: [
-                        'includes bookkeeping 1',
-                        'includes bookkeeping 1',
-                        'includes bookkeeping 1'
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!'
                     ],
-                    2: [
-                        'includes bookkeeping 2',
-                        'includes bookkeeping 2',
-                        'includes bookkeeping 2'
+                    2:[
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!'
                     ],
                     3: [
-                        'includes bookkeeping 3',
-                        'includes bookkeeping 3',
-                        'includes bookkeeping 3'
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!'
                     ]
                 },
                 Marketing: {
                     1: [
-                        'includes Marketing 1',
-                        'includes Marketing 1',
-                        'includes Marketing 1'
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!'
                     ],
                     2: [
-                        'includes Marketing 2',
-                        'includes Marketing 2',
-                        'includes Marketing 2'
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!'
                     ],
                     3: [
-                        'includes Marketing 3',
-                        'includes Marketing 3',
-                        'includes Marketing 3'
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!'
                     ]
                 },
                 All_services: {
                     1: [
-                        'includes all_services 1',
-                        'includes all_services 1',
-                        'includes all_services 1'
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!'
                     ],
                     2: [
-                        'includes all_services 2',
-                        'includes all_services 2',
-                        'includes all_services 2'
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!'
                     ],
                     3: [
-                        'includes all_services 3',
-                        'includes all_services 3',
-                        'includes all_services 3'
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!',
+                        'Struggling to Generate Leads? Run Ads Across Multiple Platforms!'
                     ]
                 },
             };
@@ -626,7 +626,7 @@
                         // `Overhead Costs: ${tierData.overheadCost.toFixed(2)}`,
                         // `Total In-House Cost: ${tierData.teamCost}`,
                         `Cost Saving: <strong>${tierData.costSaving.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </strong>`,
-                        `ROI : <strong>${tierData.roi.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong>`,
+                        `ROI : <strong>${tierData.roi.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}% </strong>`,
                         `Efficiency Gain: <strong>${tierData.efficiencySavings.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</strong>`,
                     ]
                     const includesList = tier.includes
